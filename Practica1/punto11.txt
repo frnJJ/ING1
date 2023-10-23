@@ -1,0 +1,63 @@
+HU:
+	-REGISTRARSE 
+ 	-INICIAR SESION
+	-CERRAR SESION
+	-INSCRIBIRSE AL CURSO
+	-IMPRIMIR LISTADO
+
+
+
+ID: REGISTRARSE
+TITULO: Como docente quiero registrarme para poder participar en los concursos.
+REGLAS DE NEGOCIO: 
+	-Email unico.
+	-DNI menor a 55 millones y mayor a 12 millones.
+
+Escenario 1: REGISTRARSE EXITOSO.
+-Dado un docente con email "RobertoA@gmail.com" que no se encuentra registrado en el sistema y DNI 29.002.123.
+-Cuando ingresa el email "RobertoA@gmail.com" junto con DNI 29.002.123, nombre "Roberto" y apellido "Jorge".
+-Entonces se informa que se registro correctamente, se le envia la contrasena via email y se registra correctamente en el sistema.
+
+Escenario 2: REGISTRO FALLIDO POR EMAIL REPETIDO.
+-Dado un docente con email "JorgeA@gmail.com" que se encuentra ya registrado en el sistema y DNI 22.133.333
+-Cuando ingresa el email "JorgeA@gmail.com", DNI 22.133.333, nombre "Jorge" y apellido "Arg" 
+-Entonces se informa que ese email se encuntra registrado y no se registra en el sistema.
+
+Escenario 3: REGISTRO FALLIDO POR DNI NO PERMITIDO.
+-Dado un docente con email "MarcosA@gmail.com" que no se encuentra registrado en el sistema y DNI 56.321.222 
+-Cuando ingresa el email "MarcosA@gmail.com", DNI 56.321.222, nombre "Marcos" y apellido "Arg".
+-Entonces se informa DNI no permitido y no se registra en el sistema.
+
+
+ID: INCRIBIR AL CURSO.
+TITULO: Como usuario me quiero incribir al curso para poder realizarlo.
+REGLAS DE NEGOCIO:
+	-Un usuario no puede inscribirse a mas de 3 cursos.
+
+
+Escenario 1: INCRIBIRSE EXITOSO.
+-Dado un usuario con email "Pepe@gmail.com" previamente autenticado que quiere incribirse a la materia "ISO" y tiene 0 incripciones a concursos.
+-Cuando selecciona la materia "ISO" y presiona inscribirse.
+-Entonces se inscribe correctamente e imprime el comprobante.
+
+Escenario 2: INCRIBIRSE FALLIDO POR LIMITE DE INSCRIPCIONES.
+-Dado un usuario con email "Pepe@gmail.com" previamente autenticado que quiere inscribirse a la materia "AYED" y tiene 3 inscripciones realizadas.
+-Cuando selecciona la materia "AYED" y presiona inscribirse.
+-Entonces no se inscribe al concurso y se le informa que ya esta en el limite permitido de concursos inscriptos.
+
+ID:IMPRIMIR LISTADO
+TITULO: Como jefe del area de cocursos quiero imprimir un listado con los inscriptos para enviar dicho listado al secretario administrativo.
+REGLAS DE NEGOCIO: 
+	
+
+Escenario 1: IMPRIMIR LISTADO CON EXITO.
+-Dado una materia "ISO" que tiene 10 inscriptos y el jefe de area se encuentra autenticado.
+-Cuando presiona "Imprimir listado" de la materia "ISO".
+-Entonces se imprime correctamente el listado.
+
+Escenario 2: IMPRIMIR FALIIDO POR LISTADO VACIO.	
+-Dado una materia "AYED" que tiene 0 incriptos y el jefe de area se encuentra autenticado.
+-Cuando presiona "Imprimir listado" de la materia "AYED".
+-Entonces no se imprime nada e informa que no hay inscripciones en "AYED".
+
+

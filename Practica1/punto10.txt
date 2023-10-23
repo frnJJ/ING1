@@ -1,0 +1,115 @@
+HU:	
+	-REGISTRARSE
+	-INICIAR SESION
+	-DAR DE ALTA VIAJE
+	-POSTULARSE
+	-CALIFICAR
+	-CERRAR SESION.
+
+
+ID: REGISTRARSE
+TITULO: Como cliente me quiero registrar para poder realizar viajes.
+REGLAS DE NEGOCIO: 
+	-No pueden compartir email los usuarios. 
+
+Escenario 1: REGISTRO EXITOSO.
+-Dado un cliente con nombre="Carlos", correo "CarlosM@gmail.com" (Que no se encuentra repetido en el sistema) y contrasena "CARLOS433".
+-Cuando ingresa nombre= "Carlos", correo "CarlosM@gmail.com" y contrasena "CARLOS433"
+-Enconces se registra el usuario correctamente.
+
+Escenario 2: REGISTRO FALLIDO POR CORREO REPETIDO.
+-Dado el cliente con nombre "Carlos", correo "CM@gmai.com" (Donde ya existe un usuario que usa ese mail) y contrasena "CARLOS433"
+-Cuando ingresa nombre= "Carlos", correo "CM@gmail.com" y contrasena "CARLOS433"
+-Entonces se informa que ya existe usuario con ese email y no se registra.
+
+
+
+ID: INICIAR SESION 
+TITULO: Como usuario quiero inicar sesion para poder realizar viajes. 
+REGLAS DE NEGOCIO:
+	#
+
+Escenario 1: INICIO EXITOSO
+-Dado un usuario previamente registrado con nombre de usuario="JUAN", email="Juan4@gmail.com" y contrasena= "Juan123"
+-Cuando ingresa email="Juan4@gmail.com" y contrasena= "Juan123"
+-Entonces se ingresa exitosamente al sistema.
+
+Escenario 2: INICIO FALLIDO POR EMAIL INCORRECTO.
+-Dado un usuario con nombre de usario="Martin", email="Mart@gmail.com" (No previamente registrado) y contrasena "Mart235"
+-Cuando se ingresa email="Mart@gmail.com" y contrasena "Mart235" 
+-Entonces se infroma que ese email no se encuentra registrado y no se inicia sesion.
+
+Escenario 3: INICIO FALLIDO POR CONTRASENA INCORRECTA.
+-Dado un usuario con nombre de usuario="Daniel",  email="Daniel43@gmail.com" y contrasena "DANIEL321"
+-Cuando ingresa email="Daniel143@gmail.com" y contrasena "123" 
+-Entonces se informa email o contrasena icorrecto y no se inicia sesion.
+
+
+ID: CERRAR SESION.
+TITULO: Como usuario quiero cerrar sesion para terminar de usar la app.
+REGLAS DE NEGOCIO:
+	#
+
+Escenario 1: CERRAR SESION EXITOSO.
+-Dado un usario que tiene una sesion activa.
+-Cuando presiona "Cerrar sesion" 
+-Entonces se cierra sesion correctamente.
+
+
+
+ID: DAR DE ALTA VIAJE
+TITULO: Como usuario quiero dar de alta un viaje para buscar acompanantes.
+REGLAS DE NEGOCIO: 
+	-Una persona no puede dar de alta viajes superpuestos.
+	-Si adeuda calificaciones no puede dar de alta viajes.
+
+Escenario 1: DAR DE ALTA EXITOSO.
+-Dado un usuario autenticado que planea viajar el 10/10 a las 12:00hs (No se tiene otro viaje en esa fecha) y no debe calficaciones.
+-Cuando ingresa la fecha 10/10 12:00hs y el auto "Ford Ka" 
+-Entonces se publica el viaje correctamente para que otros puedan postularse.
+
+Escenario 2: DAR DE ALTA FALLIDO POR SUPERPONER VIAJES.
+-Dado un usuario autenticado que planea viajar el 12/10 a las 13:00hs (Tiene otro viaje publicado en esa fecha) y no debe calificaciones.
+-Cuando ingresa la fecha 12/10 13:00hs y el auto "Ford Ka" 
+-Entonces se informa que ya tiene viajes publicados en esa fecha y no se da de alta el viaje.
+
+Escenario 3: DAR DE ALTA FALLIDO POR DEUDA DE CALIFICACIONES 
+-Dado un usuario autenticado que planea viajar el 13/10 a las 11:00 (No tiene viajes publicados en esa fecha) y debe calificaciones de viajes anteriores.
+-Cuando ingresa fecha 13/10 11:00hs y auto "Ford Ka"
+-Entonces se le informa que debe calificaciones de anteriores viajes y que debe completarlas para poder dar de alta viajes.
+
+
+
+ID: POSTULARSE
+TITULO: Como usuario quiero postularme a un viaje para poder unirme a un viaje ya creado.
+REGLAS DE NEGOCIO: 
+	#
+
+Escenario 1: POSTULARSE EXITOSO
+-Dado un usuario previamente autenticado
+-Cuando se postula a un viaje 
+-Entonces queda a la espera de la aceptacion del dueno del viaje.
+
+
+
+ID: CALIFICAR 
+TITULO: Como usuario quiero calificar a mis acompanantes para poder realizar proximos viajes.
+REGLAS DE NEGOCIO: 
+	#
+
+Escenario 1: CALIFICACION EXITOSA COMO COPILOTO 
+-Dado un Usuario que viajo como copiloto.
+-Cuando termina el viaje califica al piloto de su viaje con una calificacion positiva.
+-Entonces se le suma un punto a el piloto.
+
+Escenario 2: CALIFICACION EXITOSA COMO PILOTO
+-Dado un usuario que viajo como piloto. 
+-Cuando termina el viaje califica a cada uno de los copilotos con calificacion negativa.
+-Entonces se les resta un punto a todos los copilotos.
+
+
+
+
+
+
+

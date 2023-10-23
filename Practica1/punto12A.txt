@@ -1,0 +1,67 @@
+HU:
+	-INICIAR TRAMITE
+	-CONSULTAR TRAMITE
+	-GENERAR LISTADO
+
+
+ID: INICIAR TRAMITE.
+TITULO: Como cliente del banco quiero iniciar un tramite para obtener el beneficio.
+REGLAS DE NEGOCIO:
+	-EL DNI CORRESPONDE A CLIENTE DEL BANCO.
+	-MONTO MENOR A $400.000
+	
+
+Escenario 1: INICIO TRAMITE EXITOSO.
+-Dado un usuario con DNI 45.342.412 que es cliente del banco.
+-Cuando se ingresa DNI 45.342.412, nombre "Ramon", apellido "Perez", email"RamonP@gmail.com", tipo de credito "Personal" y monto $300.000
+-Entonces el sistema almacena el tramite e imprime un comprobante para el cliente.
+
+Escenario 2: INICIO TRAMITE FALLIDO POR NO SER CLIENTE.
+-Dado un usario con DNI 44.444.444 que no es cliente del banco.
+-Cuando se ingresa el DNI 44.444.444, nombre "Jorge", apellido "agr", email "JorgeA@gmail.com", tipo de credito "Vivienda" y monto $100.000
+-Entonces el sistema le envia un correo electronico al email "JorgeA@gmail.com" con el instructivo para hacerse cliente.
+
+Escenario 3: INICIO TRAMITE FALLIDO POR SUPERAR EL LIMITE DEL CREDITO.
+-Dado un usuario con DNI 22.222.222 que es cliente del banco.
+-Cuando se ingresa el DNI 22.222.222, nombre "Gerardo", apellid "ASD", email "Gerar@gmail.com", tipo de credito "Personal" y monto $500.000
+-Entonces el sistema rechaza el tramite e informa "El monto solicitado excede el limite permitido". 
+
+
+ID: CONSULTAR TRAMITE
+TITULO: Como usuario quiero consultar el tramite para ver el estado del mismo.
+REGLAS DE NEGOCIO:
+	-LIMITE DE 3 INTENTOS POR DIA.
+	
+Escenario 1: CONSULTAR EXITOSO.
+-Dado un usuario con DNI 23.332.356 que tiene un tramite con numero: 322 (Es valido).
+-Cuando ingresa el numero de tramite 322.
+-Entonces se le muestra un informe del tramite.
+
+Escenario 2: CONSULTAR FALLIDO POR NUMERO DE TRAMITE INVALIDO.
+-Dado un usuario con DNI 47.853.111 que tiene numero de tramite 43(Es valido) y la cantidad de intentos es 0.
+-Cuando ingresa el numero de tramite 4.
+-Entonces el sistema informa "Tramite inexistente".
+
+Escenario 3: CONSULTAR FALLIDO POR LIMITE DE INTENTOS.
+-Dado un usuario  con DNI 52.344.121 que tiene numero de tramite 5(Es valido) y la cantidad de intentos es 2.
+-Cuando ingresa el numero de tramite 9. 
+-Entonces el sistema bloquea la IP del cliente por 24hs e informa "Usted ha exedido el numero de consultas invalidas". 
+
+ID: GENERAR LISTADO.
+TITULO: Como gerente del banco quiero pedir un listado de creditos aprobados entre fechas para archivarlos. 
+REGLAS DE NEGOCIO:
+	
+Escenario 1: LISTADO EXITOSO CON CREDITOS.
+-Dado un gerente que quiere buscar creditos aprobados entre las fechas 10/10/23 hasta 20/10/23, en las cuales hay 3 creditos aprobados.
+-Cuando presiona "Generar listado". 
+-Entonces se muestra el listado con los 3 creditos.
+
+Escenario 2: LISTADO EXITOSO SIN CREDITOS.
+-Dado un gerente que quiere buscar creditos aprobados entre las fechas 12/3/23 hasta 20/3/23, en las cuales hay 0 creditos aprobados.
+-Cuando presiona "Generar listado". 
+-Entonces se informa "No hay creditos aprobados en las fecha ingresadas".
+
+Escenario 3: LISTADO FALLIDO POR FECHAS INVALIDAS.
+-Dado un gerente que quiere buscar creditos aprobados entre las fechas 40/3/23 hasta 56/3/23.
+-Cuando presiona "Generar listado".
+-Entonces se informa "Las fechas ingresadas no son validas".

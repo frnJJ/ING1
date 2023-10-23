@@ -1,0 +1,62 @@
+
+NOMBRE: Registrarse.
+DESCRIPCION: Una persona se registra para poder acceder al sistema.
+ACTORES: Persona.
+PRE-COND: 
+
+		ACCIONES DEL AUTOR                ACCIONES DEL SISTEMA
+CURSO 
+NORMAL 	 	1) Presiona "Registrarse"         2) Solicita los datos.
+		3) Ingresa DNI, NOMBRE,		  4) Checkea que el EMAIL sea
+		   APELLIDO Y EMAIL.		     sea valido.
+						  5) Envia al el eMail ingresado 
+						     la contrasena e informa "Registrado correctamente".
+
+CURSO		4) Si el email se encuentra repetido en el sistema se vuelve al paso 2.
+ALTERNO 	
+
+POST-COND: 	El usuario se registro correctamente
+
+
+NOMBRE: SOLICITAR TURNO.
+DESCRIPCION: Un usuario solicita un turno para asistir al gimnasio.
+ACTORES: Usuario.
+PRE-COND: El usuario debe estar autenticado.
+		ACCIONES DEL ACTOR 			ACCIONES DEL SISTEMA
+CURSO		1) Presiona "Seleccionar Turno		2) Se le solicitan los datos
+NORMAL		3) Ingresa fecha,hora y actividad	4) Verifica si hay cupo en el horario ingresado.
+							5)Registra el turno correctamente e informa que se realizo con exito.
+
+CURSO		4) Si no hay cupo se informa "cupo no disponible" 
+ALTERNO 	
+
+POST-COND: Se registra el turno correctamente.
+
+NOMBRE: REGISTRAR LLEGADA
+DESCRIPCION: Se registra la llegada de un cliente para otorgarle los puntos.
+ACTORES: Secretaria.
+PRE-COND:
+		ACCIONES DEL ACTOR 			ACCIONES DEL SISTEMA
+CURSO 		1) Presiona "Registrar asistencia"	2) Solicita los datos.
+NORMAL		3) ingresa DNI y actividad		4) Se ejecuta el caso de uso "Sumar puntos"
+		que realizara				
+							6) Se registra correctamente la llegada.
+
+CURSO		
+ALTERNO		4) si falla el CU "sumar puntos" se finaliza el CU.
+
+POST-COND: Se registra correctamente la llamada.
+
+NOMBRE: SUMAR PUNTOS.
+DESCRIPCION: Se realiza la suma de puntos en el servidor externo.
+ACTORES: Servidor externo de puntos.
+		ACCIONES DEL ACTOR			ACCIONES DEL SISTEMA
+		2) El servidor acepta la coneccion	1)Establece la conexion con el servidor
+CURSO 		4)Valida el DNI				3)Envia los datos del usuario al servidor.
+NORMAL		Suma los puntos correspondientes.	5)Se cierra la conexion con el servidor.
+							5)Envia confirmacion de la suma de puntos.
+
+CURSO 		1)Si la conexion con el servidor falla, se finaliza CU.
+ALTERNO		4)Si el DNI no se verifica, se finaliza CU.
+
+POST-COND:  	Se suman los puntos correctamente.
